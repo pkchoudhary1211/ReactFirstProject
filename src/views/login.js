@@ -2,6 +2,7 @@ import React from 'react'
 // import { Component } from 'ag-grid-community';
 // import GoogleLogin from 'react-google-login';
 // or
+import "../static/style.css"
 import { GoogleLogin } from 'react-google-login';
 const responseGoogle = (response) => {
     console.log(response);
@@ -33,21 +34,14 @@ class Login extends React.Component{
         return(
             <React.Fragment>
                 <h1> login page</h1>
-                   <div className="container-fluid">
-                        {/* Section: Edit Account */}
+                   {/* <div className="container-fluid">
                         <section className="section">
-                        {/* First row */}
                         <div className="row">
-                            {/* First column */}
                             <div className="col-lg-4 mb-4">
-                            {/* Card */}
                             <div className="card card-cascade narrower">
-                                {/* Card image */}
                                 <div className="view view-cascade gradient-card-header mdb-color lighten-3">
                                 <h5 className="mb-0 font-weight-bold">{this.state.name}</h5>
                                 </div>
-                                {/* Card image */}
-                                {/* Card content */}
                                 <div className="card-body card-body-cascade text-center">
                                 { this.state.email==''? '' :
                                     <>
@@ -59,32 +53,48 @@ class Login extends React.Component{
                                     </>
                                 }
                                 </div>
-                                <GoogleLogin
-                                    clientId="907270977097-68lm5uj9kim80gsrpto7ooblinntav7h.apps.googleusercontent.com"
-                                    buttonText="Login With Google"
-                                    className="btn btn-info btn-rounded btn-sm waves-effect waves-light"
-                                    onSuccess={this.responseGoogle}
-                                    onFailure={responseGoogle}
-                                    cookiePolicy={'single_host_origin'}
-                                />,
-                                {/* Card content */}
+                                    <GoogleLogin
+                                        clientId="907270977097-68lm5uj9kim80gsrpto7ooblinntav7h.apps.googleusercontent.com"
+                                        buttonText="Login With Google"
+                                        className="btn btn-info btn-rounded btn-sm waves-effect waves-light"
+                                        onSuccess={this.responseGoogle}
+                                        onFailure={responseGoogle}
+                                        cookiePolicy={'single_host_origin'}
+                                    />,
                             </div>
-                            {/* Card */}
                             </div>
-                            {/* First column */}
-                            {/* Second column */}
                             <div className="col-lg-8 mb-4">
-                            {/* Card */}
-                            
-                            {/* Card */}
                             </div>
-                            {/* Second column */}
                         </div>
-                        {/* First row */}
                         </section>
-                        {/* Section: Edit Account */}
+                    </div> */}
+                    <div className="wrapper fadeInDown">
+                        <div id="formContent">
+                        {/* Tabs Titles */}
+                        {/* Icon */}
+                        <div className="fadeIn first">
+                            <img src="https://png.pngtree.com/svg/20161229/_username_login_1172579.png" id="icon" alt="User Icon" />
+                        </div>
+                        {/* Login Form */}
+                        <form>
+                            <input type="text" id="login" className="fadeIn second" name="username" placeholder="example@gmail.com" />
+                            <input type="text" id="password" className="fadeIn third" name="login" placeholder="*******" />
+                            <input type="submit" className="fadeIn fourth" defaultValue="Log In" />
+                        </form>
+                        <GoogleLogin
+                            clientId="907270977097-68lm5uj9kim80gsrpto7ooblinntav7h.apps.googleusercontent.com"
+                            buttonText="Login With Google"
+                            className="btn btn-info btn-rounded btn-sm waves-effect waves-light"
+                            onSuccess={this.responseGoogle}
+                            onFailure={responseGoogle}
+                            cookiePolicy={'single_host_origin'}
+                        />,
+                        {/* Remind Passowrd */}
+                        <div id="formFooter">
+                            <a className="underlineHover" href="#">Forgot Password?</a>
+                        </div>
+                        </div>
                     </div>
-
             </React.Fragment>
             
         );

@@ -25,17 +25,69 @@ class EditContact extends React.Component{
     }
     componentDidMount(){
         const userId=this.props.match.params.id
+        // query{
+        //     getContactById(contactInput:{id:"5da5f55945114904d04b779a"}),{name}
+        // }
+//         query: `
+//      mutation CreateEvent($title: String!, $desc: String!, $price: Float!, $date: String!) {
+//        createEvent(eventInput: {title: $title, description: $desc, price: $price, date: $date}) {
+//          _id
+//          title
+//          description
+//          date
+//          price
+//        }
+//      }
+//    `,
+//      variables: {
+//        title: title,
+//        desc: description,
+//        price: price,
+//        date: date
+//      }
+//    };
         // console.log('this.props.match.params.id',this.props.match.params.id)
         axios.defaults.port = 8000;
         if(userId!=null){
-            instance.get('/contact/list?id='+userId)
+            // instance({
+            //     url:'/graphql',
+            //     method:'post',
+            //     data:{
+            //         query:`query getContactById {
+            //             getContactById(id:5da5f55945114904d04b779a){
+            //                 id
+            //                 name
+            //                 email
+            //                 subject
+            //                 message
+            //             }
+            //         }`,
+            //         // variables:{
+            //         //     id:userId
+            //         // }
+            //     }
+            // })
+            let body =  { 
+                query: `
+                    query {
+                        getContactById(contactInput: {id: "${userId}" }) {
+                            _id
+                            name
+                            email
+                           subject
+                           message
+                        }
+                    }
+                `
+            }
+            instance({ url:'/graphql',method:'post',data:body})
             .then(res => {
-                console.log('inside laxioz')
+                console.log('inside axios',res.data.data.getContactById[0].email)
                 this.setState({
-                    name:res.data.name,
-                    email:res.data.email,
-                    subject:res.data.subject,
-                    message:res.data.message
+                    name:res.data.data.getContactById[0].name,
+                    email:res.data.data.getContactById[0].email,
+                    subject:res.data.data.getContactById[0].subject,
+                    message:res.data.data.getContactById[0].message
                 })
             })
             .catch(error =>{
@@ -46,18 +98,43 @@ class EditContact extends React.Component{
     }
     updateForm(event){
         event.preventDefault();
-
+        // updateContact($id:String,$name:String,$email:String,$subject:String,$message:String){
         if(this.validator.allValid()){
             const userId=this.props.match.params.id
-            instance.put('/contact/update',
-            {'name':this.state.name,
-            'email':this.state.email,
-            'message':this.state.message,
-            'subject':this.state.subject,
-            '_id':userId
-            })
+            let body={
+                query: `mutation {
+                        
+                            updateContact(Contact_input:{
+                                _id:"${userId}",
+                                name:"${this.state.name}",
+                                email:"${this.state.email}",
+                                message:"${this.state.message}",
+                                subject:"${this.state.subject}"
+                            }){
+                                _id
+                                    name
+                                    email
+                                subject
+                                message 
+                            }
+                    }`,
+                // variables:{
+                //     name:this.state.name,
+                //     email:this.state.email,
+                //     message:this.state.message,
+                //     subject:this.state.subject,
+                //     id:userId
+                // }
+            }
+            instance({url:'/graphql', method:'post',data:body})
+            // {'name':this.state.name,
+            // 'email':this.state.email,
+            // 'message':this.state.message,
+            // 'subject':this.state.subject,
+            // '_id':userId
+            // })
             .then(res => {
-                console.log('inside laxioz')
+                console.log('inside laxioz',res)
                 // event.target.reset();
                 this.props.history.push('/info')
                 // this.setState({

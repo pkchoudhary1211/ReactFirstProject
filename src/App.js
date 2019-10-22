@@ -19,12 +19,14 @@ import Contact from './views/contact.js'
 import Login from './views/login.js'
 import TestContact from './views/testContact.js'
 import EditConatct from './views/editContact.js'
+import Register from './views/register.js'
 class App extends Component {
   render(){
   return (
       <BrowserRouter>
         <Switch>
           <Route path="/home" component={Home} />
+          <Route path="/register" component={Register} />
           <Route path='/test' component ={Test} />
           <Route path='/index'component={Admin}/>
           <Route path='/contact' component={Contact}/>

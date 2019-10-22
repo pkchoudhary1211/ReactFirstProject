@@ -135,6 +135,7 @@ class TestContact extends React.Component{
                 query {
                     contacts {
                     name
+                    _id
                     email
                     subject
                     message
