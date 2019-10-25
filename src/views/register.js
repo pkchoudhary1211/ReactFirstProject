@@ -2,9 +2,13 @@ import React from 'react'
 // import { Component } from 'ag-grid-community';
 // import GoogleLogin from 'react-google-login';
 // or
+import { Redirect } from 'react-router';
 import "../static/style.css"
 import SimpleReactValidator from 'simple-react-validator';
 import { GoogleLogin } from 'react-google-login';
+import Login from './login.js'
+import { Provider } from 'react-redux'
+// import store from './store'
 const responseGoogle = (response) => {
     console.log(response);
 }
@@ -27,13 +31,14 @@ class Register extends React.Component{
     userLogin(event){
         event.preventDefault()
         if(this.validator.allValid()){
+            return(
+            <Login  data={'test value'}/>);
             console.log("password value",this.state.password,"name:",this.state.name,"email:",this.state.email)
         }
         else{
             this.validator.showMessages()
             this.forceUpdate()
         }
-        
     }
     // responseGoogle(data){
     //     console.log("got user")
@@ -43,6 +48,9 @@ class Register extends React.Component{
         return(
             <React.Fragment>
                 <h1> Register page</h1>
+                <Provider store={'store'}>
+                   
+                </Provider>,
                     <div className="wrapper fadeInDown">
                         <div id="formContent">
                         {/* Tabs Titles */}

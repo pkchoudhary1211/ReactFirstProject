@@ -34,6 +34,7 @@ class Login extends React.Component{
         return(
             <React.Fragment>
                 <h1> login page</h1>
+                <div>{this.props.location.state.id}</div>
                    {/* <div className="container-fluid">
                         <section className="section">
                         <div className="row">
